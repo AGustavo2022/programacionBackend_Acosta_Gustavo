@@ -1,0 +1,12 @@
+{
+  "name": "desafio_3_servidor-con-express",
+  "version": "1.0.0",
+  "description": "Programacion Backend",
+  "main": "main.js",
+  "scripts": {},
+  "author": "Acosta Gustavo",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
