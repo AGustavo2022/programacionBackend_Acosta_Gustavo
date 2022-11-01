@@ -38,7 +38,6 @@ class ContenedorArchivo {
     }
 }
 
-
 async function test() {
     const rutaArchivo = './productos.txt'
     await fs.promises.writeFile(rutaArchivo, '[]')
@@ -80,8 +79,6 @@ async function test() {
 }
 
 test()
-
-
 
 
 
