@@ -7,7 +7,6 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
 // rutas
 app.use('/api/productos', routerApi);
 
