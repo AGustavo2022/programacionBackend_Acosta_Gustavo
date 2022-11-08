@@ -1,36 +1,19 @@
-const express = require('express')
+const express = require('express');
+const { routerApi } = require('./routers/routerApi.js');
 
-function productos() {
-    const fs = require('fs')
-    const data = JSON.parse(fs.readFileSync('./productos.txt', 'utf-8'))
-    return data
-}
+const app = express();
 
-function productoRandon() {
-    const fs = require('fs')
-    const data = JSON.parse(fs.readFileSync('./productos.txt', 'utf-8'))
-    const map = data.find(el => getRandomIntInclusive(1, data.length) === el.id)
-    return map
-}
+// middlewares
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-function getRandomIntInclusive(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-}
 
-const servidor = express()
-
-servidor.get('/productos',(peticion, respuesta) => {
-    respuesta.send(productos())
-})
-
-servidor.get('/productoRandon',(peticion, respuesta) => {
-    respuesta.send(productoRandon())
-})
-
+// rutas
+app.use('/api/productos', routerApi);
 
 function conectar(puerto = 0) {
     return new Promise((resolve, reject) => {
-        const servidorConectador = servidor.listen(puerto, () => {
+        const servidorConectador = app.listen(puerto, () => {
             resolve(servidorConectador)
         })
         servidorConectador.on('error', error => reject(error))
