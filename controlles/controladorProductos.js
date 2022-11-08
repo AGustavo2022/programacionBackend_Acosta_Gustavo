@@ -1,13 +1,19 @@
 
 const { randomUUID } = require('crypto');
 
-const producto = productos()
-
-function productos() {
+function productos () {
     const fs = require('fs')
     const data = JSON.parse(fs.readFileSync('./productos.txt', 'utf-8'))
-    data.map(e => {e.id=randomUUID()})
     return data
+}
+
+const producto = productos()
+
+function controladorGetProducto(req, res) {
+    const data = producto
+    data.map(e => {e.id=randomUUID()})
+    res.status(201)
+    res.json(data)
 }
 
 function controladorGetProductosSegunId({ params: {id } }, res) {
@@ -52,7 +58,7 @@ function controladorDeleteProductosSegunId({ params: { id } }, res) {
 }
 
 
-exports.productos = productos;
+exports.controladorGetProducto = controladorGetProducto;
 exports.controladorGetProductosSegunId = controladorGetProductosSegunId;
 exports.controladorPostProductos = controladorPostProductos;
 exports.controladorPutProductosSegunId = controladorPutProductosSegunId;

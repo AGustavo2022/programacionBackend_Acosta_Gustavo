@@ -1,5 +1,6 @@
 const express = require('express');
 const { routerApi } = require('./routers/routerApi.js');
+const { randomUUID } = require('crypto');
 
 const app = express();
 
@@ -9,6 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // rutas
 app.use('/api/productos', routerApi);
+
 
 function conectar(puerto = 0) {
     return new Promise((resolve, reject) => {

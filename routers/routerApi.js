@@ -1,7 +1,7 @@
 const express = require('express');
 
 const { 
-    productos,
+    controladorGetProducto,
     controladorGetProductosSegunId,
     controladorPostProductos,
     controladorPutProductosSegunId,
@@ -10,7 +10,7 @@ const {
 
 const routerApi = express.Router();
 
-routerApi.get('/', productos);
+routerApi.get('/', controladorGetProducto);
 routerApi.get('/:id', controladorGetProductosSegunId);
 routerApi.post('/', controladorPostProductos);
 routerApi.put('/:id', controladorPutProductosSegunId);
