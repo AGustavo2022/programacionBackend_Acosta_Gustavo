@@ -1,0 +1,26 @@
+<h2 style="color:crimson;">Vista de Productos</h2>
+
+{{#if hayProductos}}
+<table>
+    <tr style="color: blueviolet;">
+        <th>Titulo</th>
+        <th>Precio</th>
+        <th>Imagen</th>
+    </tr>
+    {{#each productos}}
+    <tr>
+        <td>
+            {{this.title}}
+        </td>
+        <td>
+            {{this.price}}
+        </td>
+        <td>
+            {{this.img}}
+        </td>
+    </tr>
+    {{/each}}
+</table>
+{{else}}
+<h3>No se encontraron Productos</h3>
+{{/if}}

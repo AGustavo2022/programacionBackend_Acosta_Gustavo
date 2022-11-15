@@ -7,6 +7,7 @@
   "author": "Acosta Gustavo",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "express-handlebars": "^6.0.6"
   }
 }
