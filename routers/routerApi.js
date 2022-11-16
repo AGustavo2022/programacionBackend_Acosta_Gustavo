@@ -16,4 +16,7 @@ routerApi.post('/', controladorPostProductos);
 routerApi.put('/:id', controladorPutProductosSegunId);
 routerApi.delete('/:id', controladorDeleteProductosSegunId);
 
+
+
+
 exports.routerApi = routerApi;

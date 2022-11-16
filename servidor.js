@@ -18,13 +18,11 @@ app.set('view engine', 'handlebars')
 // rutas
 app.use('/api/productos', routerApi);
 
-//
+
 app.get('/', (req, res) => {res.render('index');});
 app.get('/productos2', (req, res) => {
     res.render('productos', { productos, hayProductos: productos.length > 0 });
 });
-
-
 
 app.post('/productos', (req, res) => {
     productos.push(req.body)
