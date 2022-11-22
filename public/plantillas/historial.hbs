@@ -1,0 +1,35 @@
+<div style="padding-top:70px ;">
+    <div style="display: flex; justify-content:space-between">
+        <h1>Vista de Productos</h1>
+        {{!-- <a href="./">
+            <button type="button" class="btn btn-success">Formulario</button>
+        </a> --}}
+    </div>
+
+
+    {{#if productos.length}}
+    <table class="table bg-secondary text-white">
+        <tr style="color: while;">
+            <th>Titulo</th>
+            <th>Precio</th>
+            <th>Imagen</th>
+        </tr>
+        {{#each productos}}
+        <tr>
+            <td>
+                {{this.title}}
+            </td>
+            <td>
+                {{this.price}}
+            </td>
+            <td>
+                <img style="width:50px; height:50px" src={{this.img}} />
+            </td>
+        </tr>
+        {{/each}}
+    </table>
+    {{else}}
+    <h3 class="bg-warning">No se encontraron Productos</h3>
+    {{/if}}
+</div>
+

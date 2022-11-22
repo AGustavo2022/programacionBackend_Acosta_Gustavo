@@ -1,42 +1,37 @@
 const express = require('express');
-const { routerApi } = require('./routers/routerApi.js');
-const { engine } = require('express-handlebars')
+
+const { Server: HttpServer } = require('http')
+const { Server: IOServer } = require('socket.io')
+
+const app = express();
+const httpServer = new HttpServer(app)
+const io = new IOServer(httpServer)
 
 const productos = [];
 
-const app = express();
-
 // middlewares
-app.use(express.static('public'))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'))
 
-//
-app.engine('handlebars', engine())
-app.set('view engine', 'handlebars')
+//configuracion de socket
 
-// rutas
-//app.use('/api/productos', routerApi);
+io.on('connection', socket => {
 
+    socket.emit('personas', productos);
 
-app.get('/', (req, res) => {res.render('index');});
-app.get('/productos', (req, res) => {
-    res.render('productos', { productos, hayProductos: productos.length > 0 });
+    socket.on('update', producto => {
+        productos.push(producto)
+        io.sockets.emit('productos', productos);
+    })
 });
 
-app.post('/productos', (req, res) => {
-    productos.push(req.body)
-    console.log(productos)
-    res.redirect('/')
-});
-
-
-
-
+//inicio servidor
 
 function conectar(puerto = 0) {
     return new Promise((resolve, reject) => {
-        const servidorConectador = app.listen(puerto, () => {
+        // const servidorConectador = app.listen(puerto, () => {
+        const servidorConectador = httpServer.listen(puerto, () => {
             resolve(servidorConectador)
         })
         servidorConectador.on('error', error => reject(error))
