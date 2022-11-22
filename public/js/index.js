@@ -41,3 +41,40 @@ async function manejarEventoPersonas(productos) {
     // reemplazo el contenido del navegador con los nuevos datos
     document.getElementById('productos').innerHTML = html
 }
+
+//chats
+
+function mostrarMensajes(mensajes) {
+    const mensajesParaMostrar = mensajes.map(({ email ,fecha, texto }) => {
+        return `<li> <span style="color:blue;"><strong>${email}</strong></span> - <span style="color:#804000">${fecha}</span> : <span style="color:#008000; font-style: italic">${texto}</span> </li>`
+    })
+
+    const mensajesHtml = `
+    <ul>
+        ${mensajesParaMostrar.join('\n')}
+    </ul>`
+
+    const listaMensajes = document.getElementById('listaMensajes')
+    listaMensajes.innerHTML = mensajesHtml
+
+    // console.table(mensajesParaMostrar)
+}
+
+socket.on('mensajesActualizados', mensajes => {
+    mostrarMensajes(mensajes)
+})
+
+const botonEnviar = document.getElementById('botonEnviar')
+botonEnviar.addEventListener('click', e => {
+    const inputAutor = document.getElementById('inputCorreo')
+    const inputMensaje = document.getElementById('inputMensaje')
+    if (inputAutor.value && inputMensaje.value) {
+        const mensaje = {
+            email: inputCorreo.value,
+            texto: inputMensaje.value
+        }
+        socket.emit('nuevoMensaje', mensaje)
+    } else {
+        alert('ingrese algun mensaje')
+    }
+})

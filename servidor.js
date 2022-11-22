@@ -8,6 +8,7 @@ const httpServer = new HttpServer(app)
 const io = new IOServer(httpServer)
 
 const productos = [];
+const mensajes = [];
 
 // middlewares
 app.use(express.json());
@@ -23,6 +24,13 @@ io.on('connection', socket => {
     socket.on('update', producto => {
         productos.push(producto)
         io.sockets.emit('productos', productos);
+    })
+
+    socket.emit('mensajesActualizados', mensajes)
+    socket.on('nuevoMensaje', mensaje => {
+        mensaje.fecha = new Date().toLocaleString()
+        mensajes.push(mensaje)
+        io.sockets.emit('mensajesActualizados', mensajes)
     })
 });
 
